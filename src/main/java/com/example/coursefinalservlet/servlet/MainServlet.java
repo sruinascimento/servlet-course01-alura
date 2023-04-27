@@ -1,6 +1,7 @@
 package com.example.coursefinalservlet.servlet;
 
 import com.example.coursefinalservlet.model.ActionServlet;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,23 +17,8 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) {
+
         String parametroAcao = request.getParameter("acao");
-
-
-        HttpSession session = request.getSession();
-        boolean usuarioNaoLogado = session.getAttribute("usuarioLogado") == null;
-        boolean acaoProtegida = !(LOGIN_FORM.toString().equals(parametroAcao) || LOGIN_USUARIO.toString().equals(parametroAcao));
-
-        if(acaoProtegida && usuarioNaoLogado) {
-            try {
-                response.sendRedirect("/root?acao=" + LOGIN_FORM);
-                return;
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-
         String className = "com.example.coursefinalservlet.action." + parametroAcao;
         String redirect = null;
 
@@ -42,7 +28,12 @@ public class MainServlet extends HttpServlet {
             ActionServlet action = (ActionServlet) obj;
             redirect = (String) action.execute(request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            try {
+                request.getRequestDispatcher("WEB-INF/view/not-found.jsp").forward(request, response);
+            } catch (ServletException | IOException ex) {
+                throw new RuntimeException(ex);
+            }
         }
 
         String[] typeAndAdress = separatedString(redirect);
@@ -61,33 +52,6 @@ public class MainServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
-
-
-//        String redirect = "";
-//        if (LISTA_EMPRESA.toString().equals(parametroAcao)) {
-//            redirect = new ListaEmpresa().execute(request, response);
-//        }
-//
-//        if (REMOVE_EMPRESA.toString().equals(parametroAcao)) {
-//            redirect =  new RemoveEmpresa().execute(request, response);
-//        }
-//
-//        if (MOSTRA_EMPRESA.toString().equals(parametroAcao)) {
-//            redirect = new MostraEmpresa().execute(request, response);
-//        }
-//
-//
-//        if (ALTERA_EMPRESA.toString().equals(parametroAcao)) {
-//            redirect = new AlteraEmpresa().execute(request, response);
-//        }
-//
-//        if(NOVA_EMPRESA.toString().equals(parametroAcao)) {
-//            redirect = new NovaEmpresa().execute(request, response);
-//        }
-//
-//        if (CADASTRO_EMPRESA_FORM.toString().equals(parametroAcao)) {
-//            redirect = new CadastroEmpresaForm().execute(request, response);
-//        }
 
 
     }

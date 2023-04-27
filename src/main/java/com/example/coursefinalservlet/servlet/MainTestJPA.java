@@ -8,13 +8,13 @@ import javax.persistence.EntityManager;
 
 public class MainTestJPA {
     public static void main(String[] args) {
-        EntityManager entityManager = JPAUtil.getEntityManager();
-        UsuarioDao usuarioDao = new UsuarioDao(entityManager);
+//        EntityManager entityManager = JPAUtil.getEntityManager();
+//        UsuarioDao usuarioDao = new UsuarioDao(entityManager);
 //        entityManager.getTransaction().begin();
-//        entityManager.persist(new Usuario("sruy", "1234"));
+//        entityManager.persist(new Usuario("nara", "1234"));
 //        entityManager.getTransaction().commit();
-
-        System.out.println(usuarioDao.getUsuarioPorLoginESenha("sruy", "1234"));
-        entityManager.close();
+//
+//        System.out.println(usuarioDao.getUsuarioPorLoginESenha("sruy", "1234"));
+//        entityManager.close();
     }
 }

@@ -17,10 +17,16 @@ public class ListaEmpresa implements ActionServlet {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
 
+
+
         EntityManager entityManager = JPAUtil.getEntityManager();
         EmpresaDao empresaDao = new EmpresaDao(entityManager);
         List<Empresa> empresas = empresaDao.getEmpresas();
+
         request.setAttribute("empresas", empresas);
+
+
+
         return "forward:todas-empresas.jsp";
 
     }
