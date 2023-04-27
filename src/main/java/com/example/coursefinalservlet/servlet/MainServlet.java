@@ -29,6 +29,8 @@ public class MainServlet extends HttpServlet {
             redirect = (String) action.execute(request, response);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
+
+
             try {
                 request.getRequestDispatcher("WEB-INF/view/not-found.jsp").forward(request, response);
             } catch (ServletException | IOException ex) {
