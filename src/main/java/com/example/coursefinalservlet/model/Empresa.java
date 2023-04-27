@@ -1,7 +1,6 @@
 package com.example.coursefinalservlet.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity

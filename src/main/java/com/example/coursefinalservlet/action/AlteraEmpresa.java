@@ -1,24 +1,23 @@
-package com.example.coursefinalservlet;
+package com.example.coursefinalservlet.action;
 
 import com.example.coursefinalservlet.dao.EmpresaDao;
+import com.example.coursefinalservlet.model.Acao;
+import com.example.coursefinalservlet.model.ActionServlet;
 import com.example.coursefinalservlet.model.Empresa;
 import com.example.coursefinalservlet.util.JPAUtil;
 
 import javax.persistence.EntityManager;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-@WebServlet(urlPatterns = "/altera-empresa")
-public class AlteraEmpresaServlet extends HttpServlet {
+import static com.example.coursefinalservlet.model.Acao.LISTA_EMPRESA;
+
+public class AlteraEmpresa implements ActionServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println(request.getParameter(""));
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-            System.out.println("id::: " + request.getParameter("id"));
             Long id = Long.valueOf(request.getParameter("id"));
             EntityManager entityManager = JPAUtil.getEntityManager();
             EmpresaDao empresaDao = new EmpresaDao(entityManager);
@@ -32,10 +31,10 @@ public class AlteraEmpresaServlet extends HttpServlet {
                 empresaDao.atualiza(empresa);
                 entityManager.getTransaction().commit();
                 entityManager.close();
-                response.sendRedirect("/mostrar-empresas");
-            }
 
-        } catch (NumberFormatException | IOException e) {
+            }
+            return "redirect:root?acao=" + LISTA_EMPRESA;
+        } catch (NumberFormatException e) {
             throw new RuntimeException(e);
         }
     }

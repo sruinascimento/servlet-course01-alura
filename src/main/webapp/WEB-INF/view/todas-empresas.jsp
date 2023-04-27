@@ -8,6 +8,8 @@
 <body>
 <h1>Empresas</h1>
 
+<p>Usuario logado: ${usuarioLogado.login}</p>
+
 <c:if test="${not empty empresa and not empty cnpj}">
     Empresa: ${empresa} cadastrada com sucesso!
     CNPJ: ${cnpj}
@@ -18,10 +20,12 @@
         <li>
             Nome : ${empresa.nome}, CNPJ: ${empresa.cnpj}, Data de Cadastro - <fmt:formatDate
                 value="${empresa.dataCadastro}"/>
-            <a href="/mostrar-empresa?id=${empresa.id}">atualizar</a>
-            <a href="/remover-empresa?id=${empresa.id}">remove</a>
+            <a href="/root?acao=MostraEmpresa&id=${empresa.id}">atualizar</a>
+            <a href="/root?acao=RemoveEmpresa&id=${empresa.id}">remove</a>
         </li>
     </c:forEach>
 </ul>
+
+<c:import url="logout-parcial.jsp"/>
 </body>
 </html>

@@ -7,11 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="sytle.css">
+    <link rel="stylesheet" href="../../styles/sytle.css">
 </head>
 <body>
 
-<form action="/altera-empresa" method="POST">
+<form action="/root" method="POST">
 
     <label for="empresa">Nome</label>
     <input type="text" id="empresa" name="empresa" value="${empresa.nome}"></br>
@@ -21,7 +21,12 @@
 
     <input type="text" name="id" hidden="hidden" value="${empresa.id}"></br>
 
-    <input type="submit" value="cadastrar" class="btn__form">
+    <input type="text" name="acao" hidden="hidden" value="AlteraEmpresa">
+
+    <input type="submit" value="atualizar" class="btn__form">
 </form>
+
+<c:import url="logout-parcial.jsp"/>
+
 </body>
 </html>
